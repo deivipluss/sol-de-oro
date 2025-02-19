@@ -1,11 +1,7 @@
 import { Suspense } from 'react'
 import MenuHeader from '@/components/menu/MenuHeader'
 import ProductGrid from '@/components/menu/ProductGrid'
-import SearchBar from '@/components/menu/SearchBar'
-import CategoryFilter from '@/components/menu/CategoryFilter'
-import ClientSearchWrapper from '@/components/menu/ClientSearchWrapper'
 import { prisma } from '@/lib/prisma'
-import { MENU_CONFIG } from '@/config/menu'
 import Loading from './loading'
 import type { Metadata } from 'next'
 
@@ -76,22 +72,12 @@ export default async function MenuPage() {
       <div className="container mx-auto px-4 py-8">
         <MenuHeader />
         <Suspense fallback={<Loading />}>
-          <div className="space-y-8">
-            <div className="flex flex-col gap-6">
-              <ClientSearchWrapper>
-                <SearchBar onSearch={() => {}} />
-              </ClientSearchWrapper>
-              <CategoryFilter 
-                categories={categories}
-                onFilterChange={() => {}}
-                selectedCategory={null}
-              />
-            </div>
-            <ProductGrid 
-              products={products} 
-              categories={categories}
-            />
-          </div>
+          <ProductGrid 
+            initialData={{
+              products,
+              categories
+            }}
+          />
         </Suspense>
       </div>
     </main>
