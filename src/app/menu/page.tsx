@@ -4,14 +4,16 @@ import ProductGrid from '@/components/menu/ProductGrid'
 import { prisma } from '@/lib/prisma'
 import Loading from './loading'
 import type { Metadata } from 'next'
+import { ProductWithDetails } from '@/types'
+import { Category } from '@prisma/client'
 
 export const metadata: Metadata = {
   title: 'Menú | Sol de Oro',
   description: 'Explora nuestro menú de platillos y bebidas tradicionales peruanos',
-  keywords: ['restaurante peruano', 'menu', 'comida peruana', 'sol de oro'],
+  keywords: ['restaurante peruano', 'menu', 'comida peruana', 'sol de oro', 'tacna'],
   openGraph: {
     title: 'Menú | Sol de Oro',
-    description: 'Descubre nuestra selección de platillos peruanos',
+    description: 'Descubre nuestra selección de platillos peruanos tradicionales',
     type: 'website',
     locale: 'es_PE',
     siteName: 'Sol de Oro Restaurant',
@@ -20,15 +22,27 @@ export const metadata: Metadata = {
         url: '/images/og-menu.jpg',
         width: 1200,
         height: 630,
-        alt: 'Menú Sol de Oro'
+        alt: 'Menú Sol de Oro Restaurant'
       }
     ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Menú | Sol de Oro Restaurant',
+    description: 'Explora nuestra carta de platillos peruanos tradicionales',
+    images: ['/images/og-menu.jpg']
   }
 }
 
+// Revalidar la página cada minuto
 export const revalidate = 60
 
-async function getMenuData() {
+interface MenuData {
+  products: ProductWithDetails[]
+  categories: Category[]
+}
+
+async function getMenuData(): Promise<MenuData> {
   try {
     const [products, categories] = await Promise.all([
       prisma.product.findMany({
@@ -53,14 +67,27 @@ async function getMenuData() {
       prisma.category.findMany({
         orderBy: {
           name: 'asc'
+        },
+        where: {
+          products: {
+            some: {
+              isAvailable: true
+            }
+          }
         }
       })
     ])
 
-    return { products, categories }
+    return { 
+      products: products.map(product => ({
+        ...product,
+        price: Number(product.price)
+      })),
+      categories 
+    }
   } catch (error) {
     console.error('Error fetching menu data:', error)
-    throw new Error('Failed to fetch menu data')
+    throw new Error('No se pudo cargar el menú. Por favor, intente más tarde.')
   }
 }
 
@@ -68,9 +95,10 @@ export default async function MenuPage() {
   const { products, categories } = await getMenuData()
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="container mx-auto px-4 py-8">
+    <main className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+      <div className="container mx-auto px-4 py-8 space-y-8">
         <MenuHeader />
+        
         <Suspense fallback={<Loading />}>
           <ProductGrid 
             initialData={{

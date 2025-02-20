@@ -1,17 +1,13 @@
-import { Product, Category, Order, OrderStatus, OrderItem } from '@prisma/client'
+import { Prisma, Product, Category, Order, OrderStatus, OrderItem } from '@prisma/client'
 
-// Interfaces para Imágenes
-export interface ProductImage {
-  id: string
-  url: string
-  productId: string
-}
-
-// Interfaces para Productos
-export type ProductWithDetails = Product & {
-  category: Category
-  images: ProductImage[]
-  isAvailable: boolean
+// Tipos base para Productos
+export type ProductWithDetails = Prisma.ProductGetPayload<{
+  include: {
+    category: true
+    images: true
+  }
+}> & {
+  price: number | Prisma.Decimal
 }
 
 export type ProductCreateInput = {
@@ -25,9 +21,11 @@ export type ProductCreateInput = {
 
 export type ProductUpdateInput = Partial<ProductCreateInput>
 
-// Interfaces para el Carrito
+// Tipos para el Carrito
 export type CartItem = {
-  product: ProductWithDetails
+  product: ProductWithDetails & {
+    price: number  // Aseguramos que price sea number en el carrito
+  }
   quantity: number
 }
 
@@ -35,13 +33,13 @@ export type CartStore = {
   items: CartItem[]
   total: number
   itemCount: number
-  addItem: (product: ProductWithDetails) => void
+  addItem: (item: { product: ProductWithDetails; quantity: number }) => void
   removeItem: (productId: string) => void
   updateQuantity: (productId: string, quantity: number) => void
   clearCart: () => void
 }
 
-// Interfaces para Órdenes
+// Tipos para Órdenes
 export type OrderWithDetails = Order & {
   items: OrderItemWithDetails[]
   total: number
@@ -73,11 +71,9 @@ export type OrderCreateInput = {
   notes?: string
 }
 
-// Interfaces para Categorías
+// Tipos para Categorías
 export type CategoryWithProducts = Category & {
   products: ProductWithDetails[]
-  createdAt: Date
-  updatedAt: Date
 }
 
 export type CategoryCreateInput = {
@@ -88,7 +84,7 @@ export type CategoryCreateInput = {
 
 export type CategoryUpdateInput = Partial<CategoryCreateInput>
 
-// Interfaces para Filtros y Búsqueda
+// Tipos para Filtros y Búsqueda
 export type ProductFilters = {
   categoryId?: string
   minPrice?: number
@@ -105,7 +101,7 @@ export type SortOption = {
   direction: 'asc' | 'desc'
 }
 
-// Interfaces para Respuestas API
+// Tipos para Respuestas API
 export type ApiResponse<T> = {
   success: boolean
   data?: T
@@ -124,7 +120,7 @@ export type PaginatedResponse<T> = ApiResponse<T> & {
   prevPage?: number
 }
 
-// Interfaces para Estado Global
+// Tipos para Estado Global
 export type AppStore = {
   isCartOpen: boolean
   isMenuOpen: boolean
@@ -132,10 +128,20 @@ export type AppStore = {
   toggleMenu: () => void
 }
 
-// Interfaces para Errores
+// Tipos para Errores
 export type AppError = {
   message: string
   code?: string
   statusCode?: number
   details?: Record<string, unknown>
+}
+
+// Tipos de Utilidad
+export type WithTimestamps = {
+  createdAt: Date
+  updatedAt: Date
+}
+
+export type WithId = {
+  id: string
 }

@@ -1,12 +1,5 @@
 {
     "version": 2,
-    "buildCommand": "npm run build",
-    "outputDirectory": ".next",
-    "env": {
-      "DATABASE_URL": "@database-url",
-      "NEXTAUTH_URL": "@nextauth-url",
-      "NEXTAUTH_SECRET": "@nextauth-secret"
-    },
     "builds": [
       {
         "src": "next.config.js",

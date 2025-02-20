@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { useCartStore } from '@/store/cartStore'
 import { toast } from 'react-hot-toast'
 import { useState } from 'react'
+import { formatPrice } from '@/utils/format'
 
 interface ProductCardProps {
   product: ProductWithDetails
@@ -17,7 +18,10 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const handleAddToCart = () => {
     addItem({
-      product,
+      product: {
+        ...product,
+        price: Number(product.price)
+      },
       quantity: 1,
     })
     toast.success('Producto agregado al carrito', {
@@ -60,7 +64,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.name}
           </h3>
           <p className="text-sm text-gray-500 mt-1 line-clamp-2">
-            {product.description}
+            {product.description || 'Sin descripción'}
           </p>
         </div>
 
@@ -72,7 +76,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         <div className="flex items-center justify-between pt-2">
           <span className="text-xl font-bold text-amber-600">
-            S/. {product.price.toFixed(2)}
+            S/. {formatPrice(product.price)}
           </span>
           <button
             className="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-600 
