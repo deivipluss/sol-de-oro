@@ -80,8 +80,7 @@ async function getMenuData(): Promise<MenuData> {
 
     return { 
       products: products.map(product => ({
-        ...product,
-        price: Number(product.price)
+        ...product
       })),
       categories 
     }
