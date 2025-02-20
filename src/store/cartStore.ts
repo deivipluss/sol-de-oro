@@ -14,7 +14,7 @@ interface CartStore {
 }
 
 // Función auxiliar para calcular totales
-const calculateTotals = (items: any[]) => {
+const calculateTotals = (items: CartItem[]) => {
   return items.reduce(
     (acc, item) => ({
       total: acc.total + Number(item.product.price) * item.quantity,
