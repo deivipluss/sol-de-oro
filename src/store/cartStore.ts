@@ -36,7 +36,7 @@ export const useCartStore = create<CartStore>()(
           return {
             items: newItems,
             total: newItems.reduce(
-              (sum, item) => sum + item.product.price * item.quantity,
+              (sum, item) => sum + Number(item.product.price) * item.quantity,
               0
             ),
             itemCount: newItems.reduce((sum, item) => sum + item.quantity, 0),
@@ -49,7 +49,7 @@ export const useCartStore = create<CartStore>()(
           return {
             items: newItems,
             total: newItems.reduce(
-              (sum, item) => sum + item.product.price * item.quantity,
+              (sum, item) => sum + Number(item.product.price) * item.quantity,
               0
             ),
             itemCount: newItems.reduce((sum, item) => sum + item.quantity, 0),
@@ -65,7 +65,7 @@ export const useCartStore = create<CartStore>()(
           return {
             items: newItems,
             total: newItems.reduce(
-              (sum, item) => sum + item.product.price * item.quantity,
+              (sum, item) => sum + Number(item.product.price) * item.quantity,
               0
             ),
             itemCount: newItems.reduce((sum, item) => sum + item.quantity, 0),
