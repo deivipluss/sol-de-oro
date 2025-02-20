@@ -7,6 +7,7 @@ import { useCartStore } from '@/store/cartStore'
 import { toast } from 'react-hot-toast'
 import { useState } from 'react'
 import { formatPrice } from '@/utils/format'
+import { Prisma } from '@prisma/client'
 
 interface ProductCardProps {
   product: ProductWithDetails
@@ -20,7 +21,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     addItem({
       product: {
         ...product,
-        price: Number(product.price)
+        price: new Prisma.Decimal(product.price)
       },
       quantity: 1,
     })
