@@ -7,7 +7,7 @@ export type ProductWithDetails = Prisma.ProductGetPayload<{
     images: true
   }
 }> & {
-  price: number | Prisma.Decimal // Aseguramos que price pueda ser number o Decimal
+  price: number | Prisma.Decimal
 }
 
 export type ProductCreateInput = {
@@ -24,7 +24,7 @@ export type ProductUpdateInput = Partial<ProductCreateInput>
 // Tipos para el Carrito
 export type CartItem = {
   product: ProductWithDetails & {
-    price: number | Prisma.Decimal // Aseguramos que price pueda ser number o Decimal en el carrito
+    price: number  // Aseguramos que price sea number en el carrito
   }
   quantity: number
 }
