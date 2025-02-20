@@ -13,7 +13,7 @@ model Product {
   name        String        @db.VarChar(255)
   description String?       @db.Text
   price       Decimal       @db.Decimal(10, 2)
-  images      ProductImage[]  npx prisma migrate dev --name init_schema
+  images      ProductImage[]  // Se eliminó el comando que estaba aquí
   category    Category      @relation(fields: [categoryId], references: [id])
   categoryId  String
   isAvailable Boolean       @default(true)
