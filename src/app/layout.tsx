@@ -5,13 +5,11 @@ import { Providers } from '@/providers'
 
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter',
   display: 'swap',
 })
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
-  variable: '--font-playfair',
   display: 'swap',
 })
 
@@ -27,16 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <head>
-        <link
-          rel="preload"
-          href={process.env.NEXT_PUBLIC_FONT_URL}
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-      </head>
-      <body className={`min-h-screen bg-background font-sans ${inter.variable} ${playfair.variable}`}>
+      <body className={`min-h-screen bg-background ${inter.className} ${playfair.className}`}>
         <Providers>
           {children}
         </Providers>

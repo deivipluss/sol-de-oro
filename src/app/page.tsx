@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaArrowUp } from 'react-icons/fa';
@@ -14,7 +16,9 @@ export default function HomePage() {
           alt="Sol de Oro Restaurant"
           fill
           priority
-          className="object-cover z-[-1]"
+          sizes="100vw"
+          style={{ objectFit: 'cover' }}
+          className="z-[-1]"
         />
         <div className="container mx-auto px-4 text-center z-10">
           <h1 className="text-5xl md:text-7xl font-bold text-amber-900 mb-6 animate-fade-in">
@@ -85,6 +89,7 @@ export default function HomePage() {
                     src={category.image}
                     alt={category.name}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                     className="object-cover rounded-lg"
                   />
                 </div>
