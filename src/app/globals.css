@@ -8,6 +8,8 @@
   --primary: #f59e0b;
   --primary-hover: #d97706;
   --secondary: #92400e;
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,8 +20,8 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
@@ -42,11 +44,13 @@ body {
 
 @layer utilities {
   .animate-fade-in {
-    animation: fadeIn 1s ease-out;
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
   }
 
   .animate-fade-in-delay {
-    animation: fadeIn 1s ease-out 0.5s both;
+    opacity: 0;
+    animation: fadeIn 1s ease-in 0.5s forwards;
   }
 
   .animate-pulse-slow {
@@ -68,11 +72,9 @@ body {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 

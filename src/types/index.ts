@@ -22,8 +22,12 @@ export type ProductCreateInput = {
 export type ProductUpdateInput = Partial<ProductCreateInput>
 
 // Tipos para el Carrito
+export type CartProduct = Omit<ProductWithDetails, 'price'> & {
+  price: number
+}
+
 export type CartItem = {
-  product: Omit<ProductWithDetails, 'price'> & { price: number } // Aseguramos que price sea number en el carrito
+  product: CartProduct
   quantity: number
 }
 

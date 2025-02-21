@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { CartItem, ProductWithDetails } from '@/types'
-import { Prisma } from '@prisma/client'
+import { CartItem, ProductWithDetails, CartProduct } from '@/types'
 
 interface CartStore {
   items: CartItem[]
@@ -13,7 +12,6 @@ interface CartStore {
   clearCart: () => void
 }
 
-// Función auxiliar para calcular totales
 const calculateTotals = (items: CartItem[]) => {
   return items.reduce(
     (acc, item) => ({
@@ -31,33 +29,33 @@ export const useCartStore = create<CartStore>()(
       total: 0,
       itemCount: 0,
 
-      addItem: (item) =>
+      addItem: ({ product, quantity }) =>
         set((state) => {
+          // Convertir el producto a CartProduct
+          const normalizedProduct: CartProduct = {
+            ...product,
+            price: Number(product.price)
+          };
+
           const existingItem = state.items.find(
-            (i) => i.product.id === item.product.id
-          )
+            (i) => i.product.id === normalizedProduct.id
+          );
 
           const newItems = existingItem
             ? state.items.map((i) =>
-                i.product.id === item.product.id
-                  ? { ...i, quantity: i.quantity + item.quantity }
+                i.product.id === normalizedProduct.id
+                  ? { ...i, quantity: i.quantity + quantity }
                   : i
               )
-            : [...state.items, {
-                ...item,
-                product: {
-                  ...item.product,
-                  price: Number(item.product.price) // Asegúrate de que el precio sea number
-                }
-              }]
+            : [...state.items, { product: normalizedProduct, quantity }];
 
-          const { total, itemCount } = calculateTotals(newItems)
+          const { total, itemCount } = calculateTotals(newItems);
 
           return {
             items: newItems,
             total,
             itemCount,
-          }
+          };
         }),
 
       removeItem: (productId) =>
@@ -94,7 +92,7 @@ export const useCartStore = create<CartStore>()(
     {
       name: 'cart-storage',
       skipHydration: true,
-      version: 1, // Para control de versiones del storage
+      version: 3,
     }
   )
 )

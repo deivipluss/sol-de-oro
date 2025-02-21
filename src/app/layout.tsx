@@ -1,6 +1,6 @@
-import { Inter, Playfair_Display } from 'next/font/google'
-import type { Metadata } from 'next'
 import './globals.css'
+import type { Metadata } from 'next'
+import { Inter, Playfair_Display } from 'next/font/google'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -15,41 +15,8 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: {
-    template: '%s | Sol de Oro',
-    default: 'Sol de Oro Restaurant',
-  },
-  description: 'Restaurante de comida peruana tradicional en Cerro de Pasco - Especialistas en pollos a la brasa y parrillas',
-  keywords: [
-    'restaurante peruano',
-    'comida peruana',
-    'sol de oro',
-    'cerro de pasco',
-    'pollo a la brasa',
-    'parrillas',
-    'comida criolla'
-  ],
-  openGraph: {
-    type: 'website',
-    locale: 'es_PE',
-    siteName: 'Sol de Oro Restaurant',
-    images: [
-      {
-        url: '/images/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Sol de Oro Restaurant'
-      }
-    ]
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
-  }
+  title: 'Sol de Oro Restaurant',
+  description: 'Tradición y Sabor en Cerro de Pasco',
 }
 
 export default function RootLayout({

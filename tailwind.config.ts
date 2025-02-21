@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss"
 
-export default {
+const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -56,9 +56,9 @@ export default {
         display: ['var(--font-playfair)'],
       },
       animation: {
-        'fade-in': 'fadeIn 1s ease-out',
-        'fade-in-delay': 'fadeIn 1s ease-out 0.5s both',
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'fade-in': 'fadeIn 1s ease-in',
+        'fade-in-delay': 'fadeIn 1s ease-in 0.5s',
+        'pulse-slow': 'pulse 3s linear infinite',
         'bounce-slow': 'bounce 2s infinite',
         'slide-up': 'slideUp 0.5s ease-out',
         'slide-down': 'slideDown 0.5s ease-in',
@@ -66,8 +66,8 @@ export default {
       },
       keyframes: {
         fadeIn: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
         pulse: {
           '0%, 100%': { opacity: '1' },
@@ -126,4 +126,6 @@ export default {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
   ],
-} satisfies Config
+}
+
+export default config
