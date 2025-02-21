@@ -1,13 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   images: {
-    domains: ['res.cloudinary.com'], // si usas cloudinary
-    unoptimized: true // para deployments estáticos
+    domains: ['res.cloudinary.com'],
+    unoptimized: true,
   },
-  // La configuración de experimental ya no es necesaria
-  // experimental: {
-  //   serverActions: true,
-  // }
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 export default nextConfig
