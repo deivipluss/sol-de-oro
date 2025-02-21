@@ -26,8 +26,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="min-h-screen bg-background font-sans">
+    <html lang="es" suppressHydrationWarning>
+      <head>
+        <link
+          rel="preload"
+          href={process.env.NEXT_PUBLIC_FONT_URL}
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
+      <body className={`min-h-screen bg-background font-sans ${inter.variable} ${playfair.variable}`}>
         <Providers>
           {children}
         </Providers>

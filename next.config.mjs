@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  output: 'export',  // Cambiado de 'standalone' a 'export'
   images: {
-    domains: ['res.cloudinary.com'],
     unoptimized: true,
   },
   typescript: {
@@ -10,6 +9,14 @@ const nextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  trailingSlash: true,
+  webpack: (config) => {
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+    };
+    return config;
   },
 }
 
