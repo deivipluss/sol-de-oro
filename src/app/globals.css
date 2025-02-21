@@ -4,12 +4,17 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1a1a;
   --primary: #f59e0b;
   --primary-hover: #d97706;
   --secondary: #92400e;
   --foreground-rgb: 0, 0, 0;
   --background-rgb: 255, 255, 255;
+}
+
+.dark {
+  --background: #1a1a1a;
+  --foreground: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,6 +33,10 @@ body {
 @layer base {
   h1, h2, h3, h4 {
     font-family: 'Playfair Display', serif;
+  }
+
+  body {
+    @apply antialiased;
   }
 }
 
@@ -54,7 +63,7 @@ body {
   }
 
   .animate-pulse-slow {
-    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse 3s linear infinite;
   }
 
   .animate-bounce-slow {

@@ -4,14 +4,14 @@ import { Inter, Playfair_Display } from 'next/font/google'
 
 const inter = Inter({
   subsets: ['latin'],
-  display: 'swap',
   variable: '--font-inter',
+  display: 'swap',
 })
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
-  display: 'swap',
   variable: '--font-playfair',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -25,12 +25,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html 
-      lang="es" 
-      className={`${inter.variable} ${playfair.variable}`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-screen bg-background text-foreground antialiased">
+    <html lang="es" className={`${inter.variable} ${playfair.variable}`}>
+      <body className="min-h-screen bg-background font-sans">
         {children}
       </body>
     </html>
