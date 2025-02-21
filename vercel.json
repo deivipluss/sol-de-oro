@@ -11,5 +11,13 @@
         "src": "/(.*)",
         "dest": "/"
       }
-    ]
+    ],
+    "buildCommand": "npm run build",
+    "outputDirectory": "out",
+    "framework": "nextjs",
+    "regions": ["iad1"],
+    "images": {
+      "sizes": [640, 750, 828, 1080, 1200],
+      "minimumCacheTTL": 60
+    }
   }

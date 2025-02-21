@@ -6,11 +6,13 @@ import { Providers } from '@/providers'
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
+  preload: true,
 })
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
   display: 'swap',
+  preload: true,
 })
 
 export const metadata: Metadata = {
