@@ -2,6 +2,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
 import { Providers } from '@/providers'
+import Navbar from './shared/Navbar'
+import Footer from './shared/Footer'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,7 +31,11 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <body className={`min-h-screen bg-background ${inter.className} ${playfair.className}`}>
         <Providers>
-          {children}
+          <Navbar />
+          <main className="pt-16">
+            {children}
+          </main>
+          <Footer />
         </Providers>
       </body>
     </html>
