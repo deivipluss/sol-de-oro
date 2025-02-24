@@ -2,8 +2,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
 import { Providers } from '@/providers'
-import Navbar from '@/shared/Navbar'
-import Footer from '@/components/ui/Footer'
+import Navbar from '@/app/shared/Navbar'
+import Footer from '@/app/shared/Footer'
 
 const inter = Inter({
   subsets: ['latin'],
