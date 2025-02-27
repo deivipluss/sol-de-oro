@@ -1,7 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "next build",
-  "outputDirectory": "dist",
+  "buildCommand": "npm run vercel-build",
   "framework": "nextjs",
   "regions": ["iad1"],
   "images": {
