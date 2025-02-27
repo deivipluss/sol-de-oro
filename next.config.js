@@ -1,10 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // Para generar build estático
+  output: 'export',
   images: {
-    unoptimized: true  // Necesario para builds estáticos
+    unoptimized: true,
   },
-  trailingSlash: true  // Ayuda con rutas relativas
-};
+  // Add the distDir configuration
+  distDir: 'dist',
+  // Ensure compatibility with Vercel static deployments
+  generateBuildId: async () => {
+    return 'sol-de-oro-static-build'
+  },
+  // Disable setting trailingSlash to true for compatibility
+  trailingSlash: false,
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

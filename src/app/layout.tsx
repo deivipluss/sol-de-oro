@@ -7,19 +7,20 @@ import Footer from '@/app/shared/Footer'
 
 const inter = Inter({
   subsets: ['latin'],
+  variable: '--font-inter',
   display: 'swap',
-  preload: true,
 })
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
+  variable: '--font-playfair',
   display: 'swap',
-  preload: true,
 })
 
 export const metadata: Metadata = {
   title: 'Sol de Oro Restaurant',
-  description: 'Tradición y Sabor en Cerro de Pasco',
+  description: 'Restaurante de comida peruana en Cerro de Pasco',
+  metadataBase: new URL('https://sol-de-oro.vercel.app'),
 }
 
 export default function RootLayout({
@@ -28,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" suppressHydrationWarning>
-      <body className={`min-h-screen bg-background ${inter.className} ${playfair.className}`}>
+    <html lang="es" className={`${inter.variable} ${playfair.variable}`}>
+      <body className="font-sans antialiased min-h-screen bg-background ${inter.className} ${playfair.className}">
         <Providers>
           <Navbar />
           <main className="pt-16">
