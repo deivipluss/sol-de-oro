@@ -1,27 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',  // Para generar build estático
   images: {
     domains: ['res.cloudinary.com'],
+    unoptimized: true  // Necesario para builds estáticos
   },
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.alias['@sentry/node'] = '@sentry/browser';
-    }
-    return config;
-  },
-  async headers() {
-    return [
-      {
-        source: '/_next/static/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-    ];
-  },
+  trailingSlash: true  // Ayuda con rutas relativas
 };
 
 module.exports = nextConfig;

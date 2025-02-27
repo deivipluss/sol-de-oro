@@ -5,16 +5,16 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+        <link
+  rel="preload"
+  href="/fonts/Inter-Regular.woff2"  // Cambia la ruta
+  as="font"
+  type="font/woff2"
+  crossOrigin="anonymous"
+/>
           <link
             rel="preload"
-            href="/_next/static/media/dcc209c0b1ab30af-s.p.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/_next/static/media/a34f9d1faa5f3315-s.p.woff2"
+            href="/_next/static/media/Inter-Bold.woff2"
             as="font"
             type="font/woff2"
             crossOrigin="anonymous"
