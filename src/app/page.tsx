@@ -34,17 +34,17 @@ const specialties: Specialty[] = [
   {
     title: "Pollo a la Brasa",
     description: "Nuestro plato estrella, marinado con especias secretas",
-    image: "/images/pollo-brasa.jpg"
+    image: "/images/specialties/pollo-brasa.jpg"  // Ruta local
   },
   {
     title: "Parrilladas",
     description: "Selección premium de cortes a la parrilla",
-    image: "/images/parrillada.jpg"
+    image: "/images/specialties/parrillada.jpg"  // Ruta local
   },
   {
     title: "Comida Criolla",
     description: "Sabores auténticos de nuestra tierra",
-    image: "/images/criolla.jpg"
+    image: "/images/specialties/criolla.jpg"  // Ruta local
   }
 ];
 
@@ -96,7 +96,7 @@ export default function HomePage() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-black/40 z-10" />
         <Image
-          src="/images/hero-background.jpg"
+          src="/images/hero/hero-background.jpg"  // Ruta local
           alt="Sol de Oro Restaurant"
           fill
           priority
