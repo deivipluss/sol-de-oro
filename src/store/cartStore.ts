@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { CartItem, ProductWithDetails, CartProduct } from '@/types'
+import { CartItem, ProductWithDetails } from '@/types'
 
 interface CartStore {
   items: CartItem[]
@@ -12,16 +12,6 @@ interface CartStore {
   clearCart: () => void
 }
 
-const calculateTotals = (items: CartItem[]) => {
-  return items.reduce(
-    (acc, item) => ({
-      total: acc.total + item.product.price * item.quantity,
-      itemCount: acc.itemCount + item.quantity,
-    }),
-    { total: 0, itemCount: 0 }
-  )
-}
-
 export const useCartStore = create<CartStore>()(
   persist(
     (set) => ({
@@ -29,70 +19,85 @@ export const useCartStore = create<CartStore>()(
       total: 0,
       itemCount: 0,
 
-      addItem: ({ product, quantity }) =>
+      addItem: (item) => {
         set((state) => {
-          // Convertir el producto a CartProduct
-          const normalizedProduct: CartProduct = {
-            ...product,
-            price: Number(product.price)
-          };
-
           const existingItem = state.items.find(
-            (i) => i.product.id === normalizedProduct.id
-          );
+            (i) => i.product.id === item.product.id
+          )
 
           const newItems = existingItem
             ? state.items.map((i) =>
-                i.product.id === normalizedProduct.id
-                  ? { ...i, quantity: i.quantity + quantity }
+                i.product.id === existingItem.product.id
+                  ? { ...i, quantity: i.quantity + item.quantity }
                   : i
               )
-            : [...state.items, { product: normalizedProduct, quantity }];
+            : [
+                ...state.items,
+                {
+                  product: {
+                    ...item.product,
+                    // Asegurarnos que tenga las propiedades de CartProduct
+                    price: typeof item.product.price === 'number' 
+                      ? item.product.price 
+                      : parseFloat(String(item.product.price))
+                  },
+                  quantity: item.quantity,
+                },
+              ]
 
-          const { total, itemCount } = calculateTotals(newItems);
+          const total = newItems.reduce(
+            (sum, i) => sum + i.product.price * i.quantity,
+            0
+          )
 
-          return {
-            items: newItems,
-            total,
-            itemCount,
-          };
-        }),
+          const itemCount = newItems.reduce((sum, i) => sum + i.quantity, 0)
 
-      removeItem: (productId) =>
+          return { items: newItems, total, itemCount }
+        })
+      },
+
+      removeItem: (productId) => {
         set((state) => {
           const newItems = state.items.filter((i) => i.product.id !== productId)
-          const { total, itemCount } = calculateTotals(newItems)
+          
+          const total = newItems.reduce(
+            (sum, i) => sum + i.product.price * i.quantity,
+            0
+          )
+          
+          const itemCount = newItems.reduce((sum, i) => sum + i.quantity, 0)
+          
+          return { items: newItems, total, itemCount }
+        })
+      },
 
-          return {
-            items: newItems,
-            total,
-            itemCount,
-          }
-        }),
-
-      updateQuantity: (productId, quantity) =>
+      updateQuantity: (productId, quantity) => {
         set((state) => {
-          const newItems = state.items
-            .map((i) =>
-              i.product.id === productId ? { ...i, quantity } : i
-            )
-            .filter((i) => i.quantity > 0)
-
-          const { total, itemCount } = calculateTotals(newItems)
-
-          return {
-            items: newItems,
-            total,
-            itemCount,
+          if (quantity <= 0) {
+            return state
           }
-        }),
+          
+          const newItems = state.items.map((i) =>
+            i.product.id === productId ? { ...i, quantity } : i
+          )
+          
+          const total = newItems.reduce(
+            (sum, i) => sum + i.product.price * i.quantity,
+            0
+          )
+          
+          const itemCount = newItems.reduce((sum, i) => sum + i.quantity, 0)
+          
+          return { items: newItems, total, itemCount }
+        })
+      },
 
-      clearCart: () => set({ items: [], total: 0, itemCount: 0 }),
+      clearCart: () => {
+        set({ items: [], total: 0, itemCount: 0 })
+      },
     }),
     {
       name: 'cart-storage',
-      skipHydration: true,
-      version: 3,
     }
   )
 )

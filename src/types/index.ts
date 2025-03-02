@@ -56,6 +56,26 @@ export function convertToDisplayProduct(product: any): DisplayProduct {
   };
 }
 
+// Tipos para el Carrito
+export type CartProduct = Omit<ProductWithDetails, 'price'> & {
+  price: number
+}
+
+export type CartItem = {
+  product: CartProduct
+  quantity: number
+}
+
+export type CartStore = {
+  items: CartItem[]
+  total: number
+  itemCount: number
+  addItem: (item: { product: ProductWithDetails; quantity: number }) => void
+  removeItem: (productId: string) => void
+  updateQuantity: (productId: string, quantity: number) => void
+  clearCart: () => void
+}
+
 // Resto del código simplificado
 export type OrderWithDetails = {
   id: string;
