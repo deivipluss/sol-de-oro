@@ -30,7 +30,7 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: var(--foreground);
   background: var(--background);
   font-family: var(--font-inter);
 }
@@ -60,6 +60,10 @@ body {
 
   .card-hover {
     @apply transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl;
+  }
+  
+  .container {
+    @apply px-4 md:px-6 mx-auto;
   }
 }
 
