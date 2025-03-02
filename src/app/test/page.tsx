@@ -20,14 +20,17 @@ export default function TestPage() {
   useEffect(() => {
     const checkImage = async (path: string) => {
       try {
-        const img = new Image();
+        // Verificamos que estamos en el cliente y usamos window.Image
+        if (typeof window === 'undefined') return;
+        
+        const imgElement = new window.Image();
         
         const promise = new Promise<boolean>((resolve) => {
-          img.onload = () => resolve(true);
-          img.onerror = () => resolve(false);
+          imgElement.onload = () => resolve(true);
+          imgElement.onerror = () => resolve(false);
         });
         
-        img.src = path;
+        imgElement.src = path;
         const exists = await promise;
         setImageStatus(prev => ({ ...prev, [path]: exists }));
       } catch (error) {
