@@ -1,5 +1,3 @@
-'use client';
-
 import { Suspense } from 'react'
 import MenuHeader from '@/components/menu/MenuHeader'
 import ProductGrid from '@/components/menu/ProductGrid'
@@ -89,12 +87,23 @@ async function getMenuData(): Promise<MenuData> {
     }
   } catch (error) {
     console.error('Error fetching menu data:', error)
-    throw new Error('No se pudo cargar el menú. Por favor, intente más tarde.')
+    return { products: [], categories: [] } // Retornar valores por defecto para evitar errores
   }
 }
 
 export default async function MenuPage() {
-  const { products, categories } = await getMenuData()
+  // Usamos try/catch para manejar errores y evitar que la página falle completamente
+  let products: ProductWithDetails[] = []; // Corregido: añadido tipo
+  let categories: Category[] = []; // Corregido: añadido tipo
+  
+  try {
+    const data = await getMenuData();
+    products = data.products;
+    categories = data.categories;
+  } catch (error) {
+    console.error("Error loading menu data:", error);
+    // La página se renderizará con arrays vacíos en caso de error
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
