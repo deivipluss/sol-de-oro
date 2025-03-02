@@ -16,7 +16,7 @@ const navigation = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(true); // Forzar modo sólido para depuración
   const pathname = usePathname();
 
   // Handle scroll effect
@@ -35,9 +35,7 @@ export default function Navbar() {
   }, [scrolled]);
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
-    }`}>
+    <header className="fixed w-full z-50 transition-all duration-300 bg-white shadow-md py-2">
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="relative z-10">

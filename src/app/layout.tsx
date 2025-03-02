@@ -1,4 +1,5 @@
 import './globals.css'
+// Temporalmente para depuración: import './debug-styles.css'
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
 import { Providers } from '@/providers'
@@ -30,10 +31,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${inter.variable} ${playfair.variable}`}>
-      <body className={`font-sans antialiased min-h-screen bg-background ${inter.className}`}>
+      <body className={`font-sans antialiased min-h-screen bg-white ${inter.className}`}>
         <Providers>
           <Navbar />
-          <main>
+          <main className="pt-16">
             {children}
           </main>
           <Footer />

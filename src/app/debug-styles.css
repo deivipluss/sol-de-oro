@@ -1,0 +1,26 @@
+/* Estilos de depuración - incluir temporalmente en layout.tsx */
+
+/* Asegurar fondos claros */
+body, main, section {
+  background-color: #ffffff !important;
+}
+
+/* Hacer visibles los contenedores */
+.container {
+  border: 1px dashed rgba(0, 0, 0, 0.1);
+  padding: 1rem !important;
+}
+
+/* Forzar colores de texto */
+h1, h2, h3, p, span, a {
+  color: #333333 !important;
+}
+
+/* Evitar sobreposiciones */
+.relative {
+  position: relative !important;
+}
+
+.z-10, .z-20, .z-30, .z-40, .z-50 {
+  position: relative !important;
+}
