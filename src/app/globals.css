@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Añade estas reglas al inicio para asegurar el fondo blanco */
+html, body {
+  background-color: #ffffff !important;
+  color: #1a1a1a;
+  margin: 0;
+  padding: 0;
+}
+
+/* Asegúrate que no haya reglas que sobre-escriban esto */
+
 :root {
   --background: #ffffff;
   --foreground: #1a1a1a;
