@@ -3,10 +3,10 @@
 import { useState } from 'react'
 import { ProductWithDetails } from '@/types'
 import { Category } from '@prisma/client'
-import ProductCard from './ProductCard'
+import { motion, AnimatePresence } from 'framer-motion'
 import SearchBar from './SearchBar'
 import CategoryFilter from './CategoryFilter'
-import { motion, AnimatePresence } from 'framer-motion'
+import ProductItem from './ProductItem' // Importar el componente independiente
 
 interface ProductGridProps {
   initialData: {
@@ -29,7 +29,7 @@ export default function ProductGrid({ initialData }: ProductGridProps) {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col md:flex-row gap-6 justify-between">
         <SearchBar 
           onSearch={setSearchQuery}
           searchQuery={searchQuery}
@@ -47,17 +47,24 @@ export default function ProductGrid({ initialData }: ProductGridProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          {filteredProducts.map((product) => (
-            <motion.div 
-              key={product.id}
-              layout
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <ProductCard product={product} />
-            </motion.div>
-          ))}
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <motion.div 
+                key={product.id}
+                layout
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="h-full"
+              >
+                <ProductItem product={product} />
+              </motion.div>
+            ))
+          ) : (
+            <div className="col-span-full text-center py-12">
+              <p className="text-gray-500 text-lg">No se encontraron productos que coincidan con tu búsqueda.</p>
+            </div>
+          )}
         </motion.div>
       </AnimatePresence>
     </div>

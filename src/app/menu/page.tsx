@@ -1,3 +1,5 @@
+'use client';
+
 import { Suspense } from 'react'
 import MenuHeader from '@/components/menu/MenuHeader'
 import ProductGrid from '@/components/menu/ProductGrid'
@@ -6,6 +8,7 @@ import Loading from './loading'
 import type { Metadata } from 'next'
 import { ProductWithDetails } from '@/types'
 import { Category } from '@prisma/client'
+import PlaceholderImage from '@/components/ui/PlaceholderImage'
 
 export const metadata: Metadata = {
   title: 'Menú | Sol de Oro',

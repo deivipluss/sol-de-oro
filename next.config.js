@@ -9,6 +9,10 @@ const nextConfig = {
         hostname: '**',
       },
     ],
+    // Añadimos esta opción para que no falle si una imagen no se encuentra
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 }
 

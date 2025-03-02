@@ -49,13 +49,14 @@ const PlaceholderImage = ({
     imgElement.onerror = () => setError(true);
   }, [src]);
   
+  // Mejora el div de placeholder:
   if (!src || error) {
     return (
       <div 
         className={`${bgColors[category]} flex items-center justify-center ${className}`}
-        style={props.fill ? {position: 'absolute', inset: 0} : {}}
+        style={props.fill ? {position: 'absolute', inset: 0, width: '100%', height: '100%'} : {}}
       >
-        <div className="text-amber-800 text-center p-4">
+        <div className="text-amber-800 text-center p-4 max-w-full">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
             className="h-10 w-10 mx-auto mb-2 opacity-60" 
